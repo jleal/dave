@@ -1,83 +1,114 @@
 class BooksController < ApplicationController
-  # GET /books
-  # GET /books.json
+
   def index
-    @books = Book.all
+    target.index_for
+  end
+
+  def index_success(books)
+    @books = books
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render 'index'}
       format.json { render json: @books }
-    end
+    end   
   end
 
-  # GET /books/1
-  # GET /books/1.json
   def show
-    @book = Book.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @book }
-    end
+    target.show_for(params[:id])
   end
 
-  # GET /books/new
-  # GET /books/new.json
+  def show_success(book)
+    @book = book
+
+    respond_to do |format|
+      format.html { render 'show'}
+      format.json { render json: @book }
+    end
+  end  
+
   def new
-    @book = Book.new
+    target.new_for
+  end
+
+  def new_success(book)
+    @book = book
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render 'new'}
       format.json { render json: @book }
     end
-  end
+  end  
 
-  # GET /books/1/edit
   def edit
-    @book = Book.find(params[:id])
+    target.edit_for(params[:id])
   end
 
-  # POST /books
-  # POST /books.json
+  def edit_success(book)
+    @book = book
+
+    respond_to {|format| render 'edit'}
+  end  
+
   def create
-    @book = Book.new(params[:book])
-
-    respond_to do |format|
-      if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
-        format.json { render json: @book, status: :created, location: @book }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
-      end
-    end
+    target.create_for(params[:book])
   end
 
-  # PUT /books/1
-  # PUT /books/1.json
+  def create_success(book)
+    @book = book
+
+    respond_to do |format|
+      format.html { redirect_to @book, notice: 'Book was successfully created.' }
+      format.json { render json: @book, status: :created, location: @book }
+    end
+  end 
+
+  def create_failed(book)
+    @book = book
+
+    respond_to do |format|
+      format.html { render action: "new" }
+      format.json { render json: @book.errors, status: :unprocessable_entity }      
+    end
+  end   
+
   def update
-    @book = Book.find(params[:id])
+    target.update_for(params[:id], params[:book])
+  end
+
+  def update_success(book)
+    @book = book
 
     respond_to do |format|
-      if @book.update_attributes(params[:book])
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+      format.json { head :no_content }      
     end
   end
 
-  # DELETE /books/1
-  # DELETE /books/1.json
+  def update_failed(book)
+    @book = book
+
+    respond_to do |format|
+      format.html { render action: "edit" }
+      format.json { render json: @book.errors, status: :unprocessable_entity }      
+    end
+  end    
+
   def destroy
-    @book = Book.find(params[:id])
-    @book.destroy
+    target.destroy_for(params[:id])
+  end
+
+  def destroy_success(book)
+    @book = book
 
     respond_to do |format|
       format.html { redirect_to books_url }
       format.json { head :no_content }
     end
+  end  
+
+  private
+
+  def target
+    BookCrudTarget.new(self)
   end
 end
