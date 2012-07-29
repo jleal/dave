@@ -1,33 +1,35 @@
+
 class BooksController < ApplicationController
   include BooksControllerDelegate
 
   #==> Actions
   def index
-    target.index_for
+    target(params[:controller_type]).index_for
   end
 
   def show
-    target.show_for(params[:id])
+    target(params[:controller_type]).show_for(params[:id])
   end
 
   def new
-    target.new_for
+    target(params[:controller_type]).new_for
   end  
 
   def edit
-    target.edit_for(params[:id])
+    target(params[:controller_type]).edit_for(params[:id])
   end  
 
   def create
-    target.create_for(params[:book])
+    target(params[:controller_type]).create_for(params[:funky_book])
   end  
 
   def update
-    target.update_for(params[:id], params[:book])
+    debugger
+    target(params[:controller_type]).update_for(params[:id], params[:funky_book])
   end  
 
   def destroy
-    target.destroy_for(params[:id])
+    target(params[:controller_type]).destroy_for(params[:id])
   end
 
 end
