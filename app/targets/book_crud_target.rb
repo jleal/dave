@@ -7,49 +7,48 @@ class BookCrudTarget < Struct.new(:listener)
     listener.index_success(books)
   end
 
-  def show(book_id)
+  def show_for(book_id)
     book = Book.find(book_id)
 
-    listener.show_success(books)
+    listener.show_success(book)
   end
 
-  def new
+  def new_for
     book = Book.new
 
-    listener.new_success(books)
+    listener.new_success(book)
   end
 
-  def edit(book_id)
+  def edit_for(book_id)
     book = Book.find(book_id)
 
-    listener.edit_success(books)
+    listener.edit_success(book)
   end
 
-  def create(book_params)
+  def create_for(book_params)
     book = Book.new(book_params)
 
     if book.save
-      listener.create_success(books)      
+      listener.create_success(book)      
     else
-      listener.create_failed(books)
+      listener.create_failed(book)
     end
-
   end
 
-  def update(book_id, book_params)
+  def update_for(book_id, book_params)
     book = Book.find(book_id)
 
     if book.update_attributes(book_params)
-      listener.update_success(books)      
+      listener.update_success(book)      
     else
-      listener.update_failed(books)
+      listener.update_failed(book)
     end
   end
 
-  def destroy(book_id)
+  def destroy_for(book_id)
     book = Book.find(book_id)
     book.destroy
 
-    listener.destroy_success(books)
+    listener.destroy_success(book)
   end
 end
