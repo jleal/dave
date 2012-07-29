@@ -1,9 +1,36 @@
 class BooksController < ApplicationController
 
+  #==> Actions
   def index
     target.index_for
   end
 
+  def show
+    target.show_for(params[:id])
+  end
+
+  def new
+    target.new_for
+  end  
+
+  def edit
+    target.edit_for(params[:id])
+  end  
+
+  def create
+    target.create_for(params[:book])
+  end  
+
+  def update
+    target.update_for(params[:id], params[:book])
+  end  
+
+  def destroy
+    target.destroy_for(params[:id])
+  end
+
+
+  #==> Callbacks
   def index_success(books)
     @books = books
 
@@ -11,10 +38,6 @@ class BooksController < ApplicationController
       format.html { render 'index'}
       format.json { render json: @books }
     end   
-  end
-
-  def show
-    target.show_for(params[:id])
   end
 
   def show_success(book)
@@ -26,10 +49,6 @@ class BooksController < ApplicationController
     end
   end  
 
-  def new
-    target.new_for
-  end
-
   def new_success(book)
     @book = book
 
@@ -39,19 +58,11 @@ class BooksController < ApplicationController
     end
   end  
 
-  def edit
-    target.edit_for(params[:id])
-  end
-
   def edit_success(book)
     @book = book
 
     respond_to {|format| render 'edit'}
   end  
-
-  def create
-    target.create_for(params[:book])
-  end
 
   def create_success(book)
     @book = book
@@ -71,10 +82,6 @@ class BooksController < ApplicationController
     end
   end   
 
-  def update
-    target.update_for(params[:id], params[:book])
-  end
-
   def update_success(book)
     @book = book
 
@@ -92,10 +99,6 @@ class BooksController < ApplicationController
       format.json { render json: @book.errors, status: :unprocessable_entity }      
     end
   end    
-
-  def destroy
-    target.destroy_for(params[:id])
-  end
 
   def destroy_success(book)
     @book = book
