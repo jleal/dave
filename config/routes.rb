@@ -1,4 +1,6 @@
 Dave::Application.routes.draw do
+  resources :funky_books
+
   resources :books
 
   # The priority is based upon order of creation:

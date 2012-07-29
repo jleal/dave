@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @funky_book.name %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @funky_book.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_funky_book_path(@funky_book) %> |
+<%= link_to 'Back', funky_books_path %>

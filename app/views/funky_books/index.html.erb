@@ -1,0 +1,25 @@
+<h1>Listing funky_books</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @funky_books.each do |funky_book| %>
+  <tr>
+    <td><%= funky_book.name %></td>
+    <td><%= funky_book.content %></td>
+    <td><%= link_to 'Show', funky_book %></td>
+    <td><%= link_to 'Edit', edit_funky_book_path(funky_book) %></td>
+    <td><%= link_to 'Destroy', funky_book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Funky book', new_funky_book_path %>
