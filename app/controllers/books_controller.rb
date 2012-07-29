@@ -1,6 +1,7 @@
 
 class BooksController < ApplicationController
   include BooksControllerDelegate
+  include FunkyBooksControllerDelegate
 
   #==> Actions
   def index

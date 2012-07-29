@@ -22,7 +22,7 @@ module FunkyBooksControllerDelegate
       @funky_books = funky_books
 
       respond_to do |format|
-        format.html { render 'index'}
+        format.html { render 'funky_books/index'}
         format.json { render json: @funky_books }
       end        
     when defined?(super)
@@ -39,7 +39,7 @@ module FunkyBooksControllerDelegate
       @funky_book = funky_book
 
       respond_to do |format|
-        format.html { render 'show'}
+        format.html { render 'funky_books/show'}
         format.json { render json: @funky_book }
       end      
     when defined?(super)
@@ -56,7 +56,7 @@ module FunkyBooksControllerDelegate
       @funky_book = funky_book
 
       respond_to do |format|
-        format.html { render 'new'}
+        format.html { render 'funky_books/new'}
         format.json { render json: @funky_book }
       end      
     when defined?(super)
@@ -72,7 +72,7 @@ module FunkyBooksControllerDelegate
     when controller_type.to_sym == :funky_books
       @funky_book = funky_book
 
-      respond_to {|format| render 'edit'}      
+      respond_to {|format| render 'funky_books/edit'}      
     when defined?(super)
       super
     else
